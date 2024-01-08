@@ -18,27 +18,26 @@ class TransactionRollback extends Card
     #[Lazy]
     public function render(): Renderable
     {
-        [$executedCommands, $time, $runAt] = $this->remember(
+        [$rollbacks, $time, $runAt] = $this->remember(
             fn () => Pulse::aggregate(
-                'executed_command',
+                'rolledback_transaction',
                 'count',
                 $this->periodAsInterval(),
                 'count',
             )->map(function ($row) {
-                [$command, $arguments, $options, $statusCode] = json_decode($row->key, flags: JSON_THROW_ON_ERROR);
+                [$connectionName, $databaseName, $queries] = json_decode($row->key, flags: JSON_THROW_ON_ERROR);
 
                 return (object) [
-                    'name' => $command,
-                    'arguments' => json_encode((array) $arguments),
-                    'options' => json_encode((array) $options),
-                    'statusCode' => $statusCode,
+                    'connection' => $connectionName,
+                    'database' => $databaseName,
+                    'queries' => $queries,
                     'count' => $row->count,
                 ];
             }),
         );
 
-        return View::make('transation-rollbacks::livewire.transation-rollbacks', [
-            'executedCommands' => $executedCommands,
+        return View::make('transaction-rollbacks::livewire.transaction-rollbacks', [
+            'rollbacks' => $rollbacks,
         ]);
     }
 }

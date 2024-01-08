@@ -21,10 +21,10 @@ class TransactionRollbackServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'transaction-rollback');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'transaction-rollbacks');
 
         $this->callAfterResolving('livewire', function (LivewireManager $livewire, Application $app) {
-            $livewire->component('transation-rollbacks', TransactionRollback::class);
+            $livewire->component('transaction-rollbacks', TransactionRollback::class);
         });
     }
 }
