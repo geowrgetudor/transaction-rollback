@@ -35,7 +35,7 @@ return [
         // Existing recorders...
 
         \Geow\TransactionRollback\Recorders\TransactionRollbackRecorder::class => [
-            'enabled' => env('GEOW_TRANSACTION_ROLLBACK', true),
+            'enabled' => env('GEOW_TRANSACTION_ROLLBACKS', true),
             'ignore' => [
                 // Ignore connections or databases.
             ],
