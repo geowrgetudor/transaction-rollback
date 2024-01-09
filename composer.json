@@ -31,8 +31,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Geow\\TransactionRollback\\": "src/",
-            "Geow\\TransactionRollback\\Database\\Factories\\": "database/factories/"
+            "Geow\\TransactionRollback\\": "src/"
         }
     },
     "autoload-dev": {
